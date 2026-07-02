@@ -1,10 +1,12 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { ENVIRONMENT } from "./config/environment";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.PORT ?? 3002;
-  await app.listen(port);
-  console.log(`API is running on http://localhost:${port}`);
+
+  await app.listen(ENVIRONMENT.PORT, () => {
+    console.log(`Server started on port ${ENVIRONMENT.PORT}`);
+  });
 }
 bootstrap();
